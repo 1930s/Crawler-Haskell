@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import Crawl
 
 main :: IO ()
-main = someFunc
+main = scraping 
