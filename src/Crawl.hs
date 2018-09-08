@@ -20,9 +20,9 @@ item = chroots "body" (submittedProduct <|> unsubmittedItem)
 
 submittedProduct :: Scraper String Item 
 submittedProduct = do
-    asin         <- attr "data-asin" $ "div" @: [hasClass "feature"] // "div"
+    asin <- attr "data-asin" $ "div" @: [hasClass "feature"] // "div"
     currencyCode <- attr "data-asin-currency-code" $ "div" @: [hasClass "feature"] // "div"
-    price        <- attr "data-asin-price" $ "div" @: [hasClass "feature"] // "div"
+    price <- attr "data-asin-price" $ "div" @: [hasClass "feature"] // "div"
     return $ SubmittedProduct asin currencyCode price
 
 -- Later implementation
@@ -38,6 +38,9 @@ instance Show Item where
     show (UnsubmittedItem errorMessage) 
       = errorMessage
 
+scraping :: IO ()
+scraping = mapM_ print =<< scrapeURLs item urls
+
 urls :: [String]
 urls = [
         "http://amzn.asia/d/i3pExSS", 
@@ -45,6 +48,3 @@ urls = [
         "http://a.co/d/hgPaKkN",
         "http://a.co/d/3yMEx9r"
        ]
-
-scraping :: IO ()
-scraping = mapM_ print =<< scrapeURLs item urls
