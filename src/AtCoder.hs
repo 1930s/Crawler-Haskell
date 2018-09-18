@@ -44,8 +44,8 @@ instance Show Submission where
         where
             failedTableElements = ["CreatedTime", "Title:", "UserName:", "Language:", "Score:", "SourceLength:", "Status:", "Details:"] 
 
-url :: Contest -> Username -> URL
-url = printf "https://%s.contest.atcoder.jp/submissions/all?user_screen_name=%s"
+generateURL :: Contest -> Username -> URL
+generateURL = printf "https://%s.contest.atcoder.jp/submissions/all?user_screen_name=%s"
 
 crawlAtCoder :: Contest -> Username -> IO ()
-crawlAtCoder contest username = print =<< scrapeURL (url contest username) submissions
+crawlAtCoder contest username = print =<< scrapeURL (generateURL contest username) submissions
